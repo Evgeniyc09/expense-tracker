@@ -29,7 +29,7 @@
 
 			<div class="mt-5 max-w-3xl text-center mx-auto">
 				<p class="text-lg text-gray-600 dark:text-neutral-400">
-					Tech stack: Vue 3, Pinia, Tailwind / UI preline, Firebase
+					Tech stack: Vue 3, Pinia, Firebase, Tailwind / UI preline, heroicons
 				</p>
 			</div>
 

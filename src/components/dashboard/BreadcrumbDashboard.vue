@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ArrowRight from '@/components/icons/ArrowRightIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
 import MenuButtonIcon from '@/components/icons/MenuButtonIcon.vue'
 </script>
 
@@ -24,7 +24,7 @@ import MenuButtonIcon from '@/components/icons/MenuButtonIcon.vue'
 			<!-- Sidebar -->
 			<button
 				type="button"
-				class="py-2 px-3 flex justify-center items-center gap-x-1.5 text-xs rounded-lg border border-gray-200 text-gray-500 hover:text-gray-600 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+				class=""
 				data-hs-overlay="#application-sidebar"
 				aria-controls="application-sidebar"
 				aria-label="Sidebar"
@@ -53,5 +53,8 @@ import MenuButtonIcon from '@/components/icons/MenuButtonIcon.vue'
 	&--current {
 		@apply text-sm font-semibold text-gray-800 truncate dark:text-neutral-400;
 	}
+}
+.sidebar-button {
+	@apply py-2 px-3 flex justify-center items-center gap-x-1.5 text-xs rounded-lg border border-gray-200 text-gray-500 hover:text-gray-600 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200;
 }
 </style>

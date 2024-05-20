@@ -5,6 +5,8 @@ import AuthorizedLayout from '@/layouts/AuthorizedLayout.vue'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase/firebaseConfig'
 import { type IStaticMethods } from 'preline/preline'
+import { useAuthStore } from '@/stores/auth'
+
 declare global {
 	interface Window {
 		HSStaticMethods: IStaticMethods
@@ -20,9 +22,6 @@ const routes = [
 	{
 		path: '/login',
 		name: 'login',
-		// route level code-splitting
-		// this generates a separate chunk (About.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: LoginView
 	},
 	{
@@ -42,10 +41,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+	const authStore = useAuthStore()
+
 	if (requiresAuth) {
 		onAuthStateChanged(auth, user => {
-			console.log(user)
 			if (user) {
+				authStore.user = user
 				next()
 			} else {
 				next('/login')
