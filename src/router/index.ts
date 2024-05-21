@@ -1,6 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
+import HistoryView from '@/views/HistoryView.vue'
+import StatisticsView from '@/views/StatisticsView.vue'
+import TransactionView from '@/views/TransactionView.vue'
+import CategoriesView from '@/views/CategoriesView.vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
+import LoginForm from '@/components/auth/LoginForm.vue'
+import RegistrationForm from '@/components/auth/RegistrationForm.vue'
 import AuthorizedLayout from '@/layouts/AuthorizedLayout.vue'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase/firebaseConfig'
@@ -20,16 +26,47 @@ const routes = [
 		component: HomeView
 	},
 	{
-		path: '/login',
-		name: 'login',
-		component: LoginView
+		path: '/',
+		name: 'auth',
+		// route level code-splitting
+		component: AuthLayout,
+		children: [
+			{
+				path: '/login',
+				name: 'login',
+				component: LoginForm
+			},
+			{
+				path: '/registration',
+				name: 'registration',
+				component: RegistrationForm
+			}
+		]
 	},
 	{
 		path: '/app',
 		name: 'app',
 		// route level code-splitting
 		component: AuthorizedLayout,
-		children: [],
+		redirect: '/app/transaction',
+		children: [
+			{
+				path: 'transaction',
+				component: TransactionView
+			},
+			{
+				path: 'history',
+				component: HistoryView
+			},
+			{
+				path: 'statistics',
+				component: StatisticsView
+			},
+			{
+				path: 'categories',
+				component: CategoriesView
+			}
+		],
 		meta: { requiresAuth: true }
 	}
 ]

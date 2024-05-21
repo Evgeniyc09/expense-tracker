@@ -3,7 +3,6 @@ import { useForm, useField } from 'vee-validate'
 import type { FieldContext, FormContext } from 'vee-validate'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import GoogleIconVue from '@/components/icons/GoogleIcon.vue'
 import { toast } from 'vue3-toastify'
 import type { IAuthFields } from '@/types/auth.types'
 import { authSchema } from '@/validationSchemas'
@@ -20,27 +19,19 @@ const { handleSubmit, errors }: FormContext<IAuthFields> = useForm<IAuthFields>(
 const { value: email }: FieldContext<string> = useField<string>('email')
 const { value: password }: FieldContext<string> = useField<string>('password')
 
-const loginIsFailed = () => {
-	toast.error('Failed login', {
+const registrationIsFailed = () => {
+	toast.error('Failed registration', {
 		theme: 'dark',
 		autoClose: 1000
 	})
 }
 
-const onLoginWithGoogle = async () => {
-	try {
-		await authStore.loginWithGoogle()
-		router.push('/app/transaction')
-	} catch (error) {
-		loginIsFailed()
-	}
-}
 const onLogin = handleSubmit(async (values: IAuthFields) => {
 	try {
-		await authStore.login(values)
-		router.push({ name: 'user', params: { username: 'eduardo' } })
+		await authStore.register(values)
+		await router.push('/app/transaction')
 	} catch (error) {
-		loginIsFailed()
+		registrationIsFailed()
 	}
 })
 </script>
@@ -48,33 +39,18 @@ const onLogin = handleSubmit(async (values: IAuthFields) => {
 <template>
 	<div class="p-4 sm:p-7">
 		<div class="text-center">
-			<h1 class="title">Sign in</h1>
+			<h1 class="title">Sign up</h1>
 			<p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-				Don't have an account yet?
+				Already have an account?
 				<RouterLink
-					to="/registration"
+					to="/login"
 					class="link-to-reg"
-					>Sign up here</RouterLink
+					>Sign in here</RouterLink
 				>
 			</p>
 		</div>
 
 		<div class="mt-5">
-			<button
-				type="button"
-				@click="onLoginWithGoogle"
-				class="google-btn"
-			>
-				<GoogleIconVue />
-				Sign in with Google
-			</button>
-
-			<div
-				class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600"
-			>
-				Or
-			</div>
-
 			<!-- Form -->
 			<form @submit.prevent="onLogin">
 				<div class="grid gap-y-4">
@@ -133,7 +109,7 @@ const onLogin = handleSubmit(async (values: IAuthFields) => {
 						type="submit"
 						class="form-btn"
 					>
-						Sign in
+						Sign up
 					</button>
 				</div>
 			</form>

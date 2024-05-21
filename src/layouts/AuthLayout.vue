@@ -1,12 +1,8 @@
-<script setup lang="ts">
-import LoginFormVue from '@/components/auth/LoginForm.vue'
-</script>
-
 <template>
 	<div class="auth-section">
 		<main class="auth-container">
 			<div class="form-container">
-				<LoginFormVue />
+				<RouterView />
 			</div>
 		</main>
 	</div>

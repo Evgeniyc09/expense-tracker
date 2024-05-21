@@ -10,9 +10,9 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const { user } = storeToRefs(authStore)
-const profileData = computed(() => {
-	return authStore.user
-})
+
+const profileName = computed(() => user.value?.displayName || user.value?.email)
+const firstCharName = computed(() => user.value?.email?.charAt(0).toUpperCase())
 
 const logout = async () => {
 	try {
@@ -30,7 +30,7 @@ const logout = async () => {
 		class="hs-dropdown [--placement:bottom-right] relative inline-flex items-center"
 	>
 		<div class="mr-2 text-right">
-			{{ user?.displayName }}
+			{{ profileName }}
 		</div>
 		<button
 			type="button"
@@ -39,9 +39,15 @@ const logout = async () => {
 			<img
 				v-if="user?.photoURL"
 				class="inline-block size-[38px] rounded-full ring-2 ring-white dark:ring-neutral-800"
-				:src="user?.photoURL"
+				:src="user.photoURL"
 				alt="Image Description"
 			/>
+			<div
+				v-else
+				class="inline-flex shrink-0 justify-center items-center size-[38px] rounded-full ring-2 ring-white dark:ring-neutral-800"
+			>
+				<span class="text-xl">{{ firstCharName }}</span>
+			</div>
 		</button>
 
 		<div

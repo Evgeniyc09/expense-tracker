@@ -5,9 +5,10 @@ import { ref } from 'vue'
 import type { IMenuItem } from '@/types/menu.types'
 
 const menuItems = ref<IMenuItem[]>([
-	{ name: 'Dashboard', url: '/app', icon: 'HomeIcon' },
-	{ name: 'History', url: '/login', icon: 'ClockIcon' },
-	{ name: 'Statistics', url: '/', icon: 'ChartPieIcon' }
+	{ name: 'Transaction', url: '/app/transaction', icon: 'ArrowsUpDownIcon' },
+	{ name: 'History', url: '/app/history', icon: 'ClockIcon' },
+	{ name: 'Statistics', url: '/app/statistics', icon: 'ChartPieIcon' },
+	{ name: 'Categories', url: '/app/categories', icon: 'DocumentDuplicateIcon' }
 ])
 </script>
 
